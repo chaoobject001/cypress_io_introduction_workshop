@@ -17,3 +17,12 @@ Also install json-server globally with
 ```
 npm install -g json-server
 ```
+Require following console commands before start running / developing tests:
+```
+1. npm run server
+```
+2. npm start
+```
+3. npx cypress open
+```
+
