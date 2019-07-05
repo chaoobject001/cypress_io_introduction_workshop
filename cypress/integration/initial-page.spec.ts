@@ -7,17 +7,34 @@
 describe('dashboard', () => {
   
   beforeEach(() => {
-    cy.visit("localhost:4200/dashboard");
+    cy.visit("/dashboard"); // domain - 'baseUrl' in cypress.json 
+    // cy.get('nav a').as('Dashboardlinks');  // create alias
+
   })
 
   it(`has basic info`, () => {
     cy.contains('Tour of Heroes'); 
     cy.get('h1').should('contain', 'Tour');
-    cy.title().should('eq', 'Tour of Heroes');
-    cy.get('nav a').should('contain', 'Dashboard');
-    cy.get('nav a').eq(1).should('contain', 'Heroes');
+    cy.title().should('eq', Cypress.env("defaultTitle"));
+
+    
+
+    // drill up then down
+    // cy.get() is global
+    // node.get() only look for children  
+    cy.get('nav a').first().contains('Dashboard')
+      .parent().children().last().contains('Heroes');
+
+    // first and last  
+    // cy.get('nav a').first().contains('Dashboard');
+    // cy.get('nav a').last().contains('Heroes');
+
+    // cy.get('@Dashboardlinks').should('contain', 'Dashboard');
+    // cy.get('@Dashboardlinks').eq(0).should('contain', 'Dashboard'); // get alias will re-run selector
+    // cy.get('@Dashboardlinks').eq(1).should('contain', 'Heroes');
+
     cy.get('h3').should('contain', 'Top Heroes');
-    cy.get('#search-component h4').should('contain', 'Hero Search');
+    cy.get('app-hero-search h4').should('contain', 'Hero Search');
   })
 
 
