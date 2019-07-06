@@ -82,4 +82,21 @@ describe('dashboard', () => {
     cy.get('#search-component h4').should('contain', 'Hero Search');
   })
 
+  it(`can search`, () => {
+    /*
+    cy.get(`#search-box`).type("mr. nice");
+    cy.get(`.search-result li`).should('contain', 'Mr. Nice').click();
+    cy.url().should(`include`, `/detail/11`)
+    cy.get(`[ng-reflect-model='Mr. Nice']`).should('be.visible');
+    */
+
+    cy.get(`#search-box`).type("n");
+    cy.get(`.search-result li`)
+      .should('have.length', 6)
+      .first().contains('Narco');
+    cy.get(`.search-result li`).contains('Mr. Nice').click();
+    cy.url().should(`include`, `/detail/11`)
+    
+  })
+
 })

@@ -24,3 +24,10 @@ Require following console commands before start running / developing tests:
 3. npx cypress open
 ```
 
+To run Cypress on different environment on command line, run following command on terminal: 
+```
+export CYPRESS_host=HostURL
+```
+where variable 'host' is linked to property host in cypress.env.json
+and HostURL can be any environment domain specified like "http://domain.local.dev" 
+
