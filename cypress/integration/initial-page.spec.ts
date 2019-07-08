@@ -90,7 +90,10 @@ describe('dashboard', () => {
     cy.get(`[ng-reflect-model='Mr. Nice']`).should('be.visible');
     */
 
-    cy.get(`#search-box`).type("n");
+    cy.get(`#search-box`).type("na");
+    cy.get(`.search-result li`)
+      .should('have.length', 3);
+    cy.get(`#search-box`).type("{backspace}");
     cy.get(`.search-result li`)
       .should('have.length', 6)
       .first().contains('Narco');
