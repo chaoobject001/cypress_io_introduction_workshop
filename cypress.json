@@ -4,5 +4,6 @@
   "blacklistHosts": "*google-analytics.com",
   "env": {
     "defaultTitle": "Tour of Heroes"
-  } 
+  }, 
+  "chromeWebSecurity": false
 }

@@ -10,6 +10,8 @@ describe('dashboard', () => {
     cy.visit("/dashboard"); // domain - 'baseUrl' in cypress.json 
     // cy.get('nav a').as('Dashboardlinks');  // create alias
 
+
+
   })
 
   it(`has basic info`, () => {
@@ -100,6 +102,21 @@ describe('dashboard', () => {
     cy.get(`.search-result li`).contains('Mr. Nice').click();
     cy.url().should(`include`, `/detail/11`)
     
+  })
+
+  it(`can display just one hero`, () => {
+    
+    cy.server();
+    cy.route({
+      method: "GET",
+      url: "/api/heroes", 
+      response: [{"id": 11, "name": "Mr. Nice"}]
+    })
+
+    cy.visit("/dashboard");
+    
+    cy.get(`.module.hero`).should('have.length', 1)
+    cy.get(`.module.hero`).first().should('contain', 'Mr. Nice')
   })
 
 })

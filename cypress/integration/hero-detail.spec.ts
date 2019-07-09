@@ -2,7 +2,14 @@ describe(`Hero Detail`, () => {
   it(`should edit name`, () => {
     cy.visit('/detail/11');
 
-    cy.server(); // start cypress server (engine) to intercept request
+    cy.server(); // 1. start cypress server (engine) to intercept request
+    // 2. look for request with specific url endpoint, intercept it from going to server
+    // then provide a response body
+    cy.route({
+      method: "PUT",
+      url: '/api/heroes/11',
+      response: { id:11, name: "Spider Pig" }
+    }); 
 
     
     
@@ -14,7 +21,14 @@ describe(`Hero Detail`, () => {
     // })
 
     cy.get('input').clear().type('Spider Pig');
-    cy.contains('save').click();
+    cy.get('h2').first().should('contain', 'SPIDER PIG');
+    cy.contains('save').click()
+
+    // a fix with UI to restore DB to the state before edit
+    // - can be removed after cy.route() intercept request
+    // cy.visit('/detail/11');
+    // cy.get('input').clear().type('Mr. Nice');
+    // cy.contains('save').click();
 
   })
 })
