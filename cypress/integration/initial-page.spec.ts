@@ -4,6 +4,10 @@
 // use this method require the statement at begining of each file
 */
 
+let twoHeroes = [{"id": 11, "name": "Mr. Nice"}, {"id": 12, "name": "Narco"}];
+
+               
+
 describe('dashboard', () => {
   
   beforeEach(() => {
@@ -110,13 +114,28 @@ describe('dashboard', () => {
     cy.route({
       method: "GET",
       url: "/api/heroes", 
-      response: [{"id": 11, "name": "Mr. Nice"}]
+      response: 'fixture:singleHero'
     })
 
     cy.visit("/dashboard");
     
     cy.get(`.module.hero`).should('have.length', 1)
-    cy.get(`.module.hero`).first().should('contain', 'Mr. Nice')
+    cy.get(`.module.hero`).first().should('contain', 'Spider Pig')
+  })
+
+  it(`can display just two blocks when given two heroes`, () => {
+    
+    cy.server();
+    cy.route({
+      method: "GET",
+      url: "/api/heroes", 
+      response: 'fixture:twoHeroes'
+    })
+
+    cy.visit("/dashboard");
+    
+    cy.get(`.module.hero`).should('have.length', 2)
+    // cy.get(`.module.hero`).first().should('contain', 'Spider Pig')
   })
 
 })

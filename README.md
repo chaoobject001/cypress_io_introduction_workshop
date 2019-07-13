@@ -31,3 +31,9 @@ export CYPRESS_host=HostURL
 where variable 'host' is linked to property host in cypress.env.json
 and HostURL can be any environment domain specified like "http://domain.local.dev" 
 
+To run Cypress in headless mode for CI
+```
+npx cypress run
+```
+
+There are plug-ins for visual testing and maybe more...
